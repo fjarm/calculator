@@ -1,2 +1,3 @@
-# calculator
-An in-browser calculator.
+The intention of this project is to create a full working on-screen calculator. This includes: Add, Subtract, Divide, Multiply, Decimals, Undo, Clear, Toggle Negative, and Percentage buttons.
+
+This is a lesson in the <a href="https://www.theodinproject.com/about">Odin Project</a>. The link to the actual lesson can be found <a href="https://www.theodinproject.com/lessons/foundations-calculator">here</a>.
