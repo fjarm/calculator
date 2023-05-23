@@ -1,0 +1,9 @@
+:root {
+    /* text: var(--text); */
+    --text: #000000;
+    --background: #f2ede8;
+    --primaryButton: #3d556c;
+    --secondaryButton: #f9f7f5;
+    --accent: #18212a;
+}
+
