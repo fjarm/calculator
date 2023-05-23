@@ -6,7 +6,11 @@
     --accent: #18212a;
 }
 
-body {
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+body, html {
     background-color: var(--background);
     color: var(--text);
 
@@ -16,19 +20,50 @@ body {
 }
 
 .calculator {
-    height: 60vh;
-    width: 50vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--accent);
+}
+
+.display {
+    background-color: var(--primaryButton);
+    height: 75px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topDisplay, .bottomDisplay {
+    color: var(--background);
+    text-align: end;
+}
+
+.bottomDisplay {
+    margin-top: auto;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.topDisplay {
+    padding-right: 10px;
+    padding-top: 10px;
+    font-size: 14px;
 }
 
 .buttonGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 12px;
+    padding-bottom: 5px;
 }
 
 button {
     display: inline-block;
-    padding: 15px 25px;
+    padding: 20px 25px;
     font-size: 24px;
     cursor: pointer;
     text-align: center;
