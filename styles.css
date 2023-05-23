@@ -1,5 +1,4 @@
 :root {
-    /* text: var(--text); */
     --text: #000000;
     --background: #f2ede8;
     --primaryButton: #3d556c;
@@ -7,3 +6,7 @@
     --accent: #18212a;
 }
 
+body {
+    background-color: var(--background);
+    color: var(--text);
+}
