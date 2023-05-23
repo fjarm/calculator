@@ -17,10 +17,14 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 .calculator {
     padding: 20px;
+    margin-top: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -92,4 +96,26 @@ button:active {
 
 .operator {
     color: orange;
+}
+
+.footer {
+    margin-top: auto;
+    margin-bottom: 5px;
+}
+
+a:link {
+    color: var(--accent)
+}
+
+a:visited {
+    color: var(--accent)
+}
+
+a:hover {
+    color: var(--text)
+}
+
+a {
+    font-size: 20px;
+    text-decoration: none;
 }
