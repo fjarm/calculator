@@ -29,6 +29,7 @@ body, html {
     flex-direction: column;
     justify-content: center;
     background-color: var(--accent);
+    border-radius: 15px;
 }
 
 .display {
