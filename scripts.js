@@ -14,15 +14,15 @@ const seven = document.querySelector("#seven");
 const eight = document.querySelector("#eight");
 const nine  = document.querySelector("#nine");
 
-const clear = document.querySelector("clear");
+const clear = document.querySelector("#clear");
 const toggleNegative = document.querySelector("#plusminus");
-const percent = document.querySelector("percent");
+const percent = document.querySelector("#percent");
 
-const plusButton = document.querySelector("plus");
-const subButton = document.querySelector("minus");
-const multiplyButton = document.querySelector("multiply");
-const divideButton = document.querySelector("divide");
-const equalsButton = document.querySelector("equals");
+const plusButton = document.querySelector("#plus");
+const subButton = document.querySelector("#minus");
+const multiplyButton = document.querySelector("#multiply");
+const divideButton = document.querySelector("#divide");
+const equalsButton = document.querySelector("#equals");
 
 function add(x, y)
 {
@@ -120,3 +120,6 @@ zero.addEventListener("click", () => {
     updateBottomDisplay("0");
 });
 
+clear.addEventListener("click", () => {
+    bottomDisplay.textContent = "0";
+});
