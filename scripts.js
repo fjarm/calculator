@@ -1,5 +1,6 @@
 let bottomDisplay = document.querySelector(".bottomDisplay");
-let topDisplay = 0;
+bottomDisplay.textContent = "0";
+let topDisplay = document.querySelector(".topDisplay");
 let currentOperator = undefined;
 
 const zero  = document.querySelector("#zero");
@@ -63,3 +64,59 @@ function operate(x, y, operator)
             return;
     }
 }
+
+function updateBottomDisplay(number)
+{
+    if (bottomDisplay.textContent.length < 19)
+    {
+        if (bottomDisplay.textContent === "0")
+        {
+            bottomDisplay.textContent = number;
+        }
+        else
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.concat(number);
+        }
+    }
+}
+
+one.addEventListener("click", () => {
+    updateBottomDisplay("1");
+});
+
+two.addEventListener("click", () => {
+    updateBottomDisplay("2");
+});
+
+three.addEventListener("click", () => {
+    updateBottomDisplay("3");
+});
+
+four.addEventListener("click", () => {
+    updateBottomDisplay("4");
+});
+
+five.addEventListener("click", () => {
+    updateBottomDisplay("5");
+});
+
+six.addEventListener("click", () => {
+    updateBottomDisplay("6");
+});
+
+seven.addEventListener("click", () => {
+    updateBottomDisplay("7");
+});
+
+eight.addEventListener("click", () => {
+    updateBottomDisplay("8");
+});
+
+nine.addEventListener("click", () => {
+    updateBottomDisplay("9");
+});
+
+zero.addEventListener("click", () => {
+    updateBottomDisplay("0");
+});
+
