@@ -67,7 +67,7 @@ function operate(x, y, operator)
 
 function updateBottomDisplay(number)
 {
-    if (bottomDisplay.textContent.length < 19)
+    if (bottomDisplay.textContent.length < 55)
     {
         if (bottomDisplay.textContent === "0")
         {
