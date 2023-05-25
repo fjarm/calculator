@@ -1,7 +1,12 @@
 let bottomDisplay = document.querySelector(".bottomDisplay");
 bottomDisplay.textContent = "0";
 let topDisplay = document.querySelector(".topDisplay");
-let currentOperator = undefined;
+
+let number1 = "";
+let number2 = "";
+let currentOperator = "";
+
+let currentNumber = 1;
 
 const zero  = document.querySelector("#zero");
 const one   = document.querySelector("#one");
@@ -46,38 +51,94 @@ function multiply(x, y)
 
 function operate(x, y, operator)
 {
+    x = parseInt(x);
+    y = parseInt(y);
     switch(operator)
     {
         case "add":
-            add(x, y);
-            break;
+            return add(x, y);
         case "subtract":
-            subtract(x, y);
-            break;
+            return subtract(x, y);
         case "divide":
-            divide(x, y);
-            break;
+            return divide(x, y);
         case "multiply":
-            multiply(x, y);
-            break;
+            return multiply(x, y);
         default:
             return;
     }
 }
 
+function concatBottomDisplay(string)
+{
+    bottomDisplay.textContent = bottomDisplay.textContent.concat(string);
+    return;
+}
+
+function updateTopDisplay(x, y, operator)
+{
+    let operatorString = " + ";
+    switch(operator)
+    {
+        case "add":
+            operatorString = " + ";
+            break;
+        case "subtract":
+            operatorString = " - ";
+            break;
+        case "divide":
+            operatorString = " / ";
+            break;
+        case "multiply":
+            operatorString = " x ";
+            break;
+        default:
+            operatorString = "";
+            break;
+    }
+    topDisplay.textContent = x + operatorString + y;
+}
+
 function updateBottomDisplay(number)
 {
-    if (bottomDisplay.textContent.length < 55)
+    if (bottomDisplay.textContent.length < 100)
     {
         if (bottomDisplay.textContent === "0")
         {
             bottomDisplay.textContent = number;
+            setNumberVariables(number);
         }
         else
         {
-            bottomDisplay.textContent = bottomDisplay.textContent.concat(number);
+            concatBottomDisplay(number);
+            concatNumberVariables(number);
         }
     }
+}
+
+function setNumberVariables(number)
+{
+    if (currentNumber === 1)
+    {
+        number1 = number;
+    }
+    else if (currentNumber === 2)
+    {
+        number2 = number;
+    }
+    return;   
+}
+
+function concatNumberVariables(number)
+{
+    if (currentNumber === 1)
+    {
+        number1 = number1.concat(number);
+    }
+    else if (currentNumber === 2)
+    {
+        number2 = number2.concat(number);
+    }
+    return;
 }
 
 one.addEventListener("click", () => {
@@ -122,4 +183,18 @@ zero.addEventListener("click", () => {
 
 clear.addEventListener("click", () => {
     bottomDisplay.textContent = "0";
+});
+
+plusButton.addEventListener("click", () => {
+    concatBottomDisplay(" + ")
+    currentOperator = "add";
+    currentNumber = 2;
+});
+
+equalsButton.addEventListener("click", () => {
+    result = operate(number1, number2, currentOperator);
+    updateTopDisplay(number1, number2, currentOperator);
+    bottomDisplay.textContent = result;
+    number1 = result;
+    number2 = ""
 });
