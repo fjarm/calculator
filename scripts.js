@@ -156,6 +156,14 @@ function calculate()
     return;
 }
 
+function updateForAddition()
+{
+    concatBottomDisplay(" + ")
+    currentOperator = "add";
+    currentNumber = 2;
+    justCalculated = false;
+}
+
 one.addEventListener("click", () => {
     updateBottomDisplay("1");
 });
@@ -200,6 +208,7 @@ clear.addEventListener("click", () => {
     bottomDisplay.textContent = "0";
     topDisplay.textContent = "";
     number1 = 0;
+    number2 = 0;
 });
 
 plusButton.addEventListener("click", () => {
@@ -209,18 +218,12 @@ plusButton.addEventListener("click", () => {
     }
     if (currentOperator === "")
     {
-        concatBottomDisplay(" + ")
-        currentOperator = "add";
-        currentNumber = 2;
-        justCalculated = false;
+        updateForAddition();
     }
     else if (currentOperator === "add" && number2 != "")
     {
         calculate();
-        concatBottomDisplay(" + ")
-        currentOperator = "add";
-        currentNumber = 2;
-        justCalculated = false;
+        updateForAddition();
     }
 });
 
