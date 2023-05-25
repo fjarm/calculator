@@ -143,6 +143,19 @@ function concatNumberVariables(number)
     return;
 }
 
+function calculate()
+{
+    result = operate(number1, number2, currentOperator);
+    updateTopDisplay(number1, number2, currentOperator);
+    bottomDisplay.textContent = result;
+    number1 = result;
+    number2 = "";
+    currentOperator = "";
+    currentNumber = 1;
+    justCalculated = true;
+    return;
+}
+
 one.addEventListener("click", () => {
     updateBottomDisplay("1");
 });
@@ -194,22 +207,26 @@ plusButton.addEventListener("click", () => {
     {
         number1 = 0;
     }
-    concatBottomDisplay(" + ")
-    currentOperator = "add";
-    currentNumber = 2;
-    justCalculated = false;
+    if (currentOperator === "")
+    {
+        concatBottomDisplay(" + ")
+        currentOperator = "add";
+        currentNumber = 2;
+        justCalculated = false;
+    }
+    else if (currentOperator === "add" && number2 != "")
+    {
+        calculate();
+        concatBottomDisplay(" + ")
+        currentOperator = "add";
+        currentNumber = 2;
+        justCalculated = false;
+    }
 });
 
 equalsButton.addEventListener("click", () => {
-    if (currentOperator != "")
+    if (currentOperator != "" && number2 != "")
     {
-        result = operate(number1, number2, currentOperator);
-        updateTopDisplay(number1, number2, currentOperator);
-        bottomDisplay.textContent = result;
-        number1 = result;
-        number2 = "";
-        currentOperator = "";
-        currentNumber = 1;
-        justCalculated = true;
+        calculate();
     }
 });
