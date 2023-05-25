@@ -5,6 +5,7 @@ let topDisplay = document.querySelector(".topDisplay");
 let number1 = "";
 let number2 = "";
 let currentOperator = "";
+let justCalculated = false;
 
 let currentNumber = 1;
 
@@ -102,8 +103,9 @@ function updateBottomDisplay(number)
 {
     if (bottomDisplay.textContent.length < 100)
     {
-        if (bottomDisplay.textContent === "0")
+        if (bottomDisplay.textContent === "0" || justCalculated === true)
         {
+            justCalculated = false;
             bottomDisplay.textContent = number;
             setNumberVariables(number);
         }
@@ -183,18 +185,31 @@ zero.addEventListener("click", () => {
 
 clear.addEventListener("click", () => {
     bottomDisplay.textContent = "0";
+    topDisplay.textContent = "";
+    number1 = 0;
 });
 
 plusButton.addEventListener("click", () => {
+    if (number1 === "")
+    {
+        number1 = 0;
+    }
     concatBottomDisplay(" + ")
     currentOperator = "add";
     currentNumber = 2;
+    justCalculated = false;
 });
 
 equalsButton.addEventListener("click", () => {
-    result = operate(number1, number2, currentOperator);
-    updateTopDisplay(number1, number2, currentOperator);
-    bottomDisplay.textContent = result;
-    number1 = result;
-    number2 = ""
+    if (currentOperator != "")
+    {
+        result = operate(number1, number2, currentOperator);
+        updateTopDisplay(number1, number2, currentOperator);
+        bottomDisplay.textContent = result;
+        number1 = result;
+        number2 = "";
+        currentOperator = "";
+        currentNumber = 1;
+        justCalculated = true;
+    }
 });
