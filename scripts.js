@@ -99,6 +99,27 @@ function updateTopDisplay(x, y, operator)
     topDisplay.textContent = x + operatorString + y;
 }
 
+function operatorCheck()
+{
+    switch(currentOperator)
+    {
+        case "add":
+            updateForAddition()
+            break;
+        case "subtract":
+            updateForSubtraction()
+            break;
+        case "multiply":
+            updateForMultiplication()
+            break;
+        case "divide":
+            updateForDivision()
+            break;
+        default:
+            return;    
+    }
+}
+
 function updateBottomDisplay(number)
 {
     if (bottomDisplay.textContent.length < 100)
@@ -143,16 +164,27 @@ function concatNumberVariables(number)
     return;
 }
 
-function calculate()
+function calculate(chaining)
 {
     result = operate(number1, number2, currentOperator);
+    result = result.toFixed(5);
     updateTopDisplay(number1, number2, currentOperator);
     bottomDisplay.textContent = result;
     number1 = result;
     number2 = "";
-    currentOperator = "";
+    if (!chaining)
+    {
+        currentOperator = "";
+    }
     currentNumber = 1;
     justCalculated = true;
+    return;
+}
+
+function operatorUpdates()
+{
+    currentNumber = 2;
+    justCalculated = false;
     return;
 }
 
@@ -160,16 +192,28 @@ function updateForAddition()
 {
     concatBottomDisplay(" + ")
     currentOperator = "add";
-    currentNumber = 2;
-    justCalculated = false;
+    operatorUpdates()
 }
 
 function updateForSubtraction()
 {
     concatBottomDisplay(" - ")
     currentOperator = "subtract";
-    currentNumber = 2;
-    justCalculated = false;
+    operatorUpdates()
+}
+
+function updateForMultiplication()
+{
+    concatBottomDisplay(" x ")
+    currentOperator = "multiply";
+    operatorUpdates()
+}
+
+function updateForDivision()
+{
+    concatBottomDisplay(" / ")
+    currentOperator = "divide";
+    operatorUpdates()
 }
 
 one.addEventListener("click", () => {
@@ -215,8 +259,9 @@ zero.addEventListener("click", () => {
 clear.addEventListener("click", () => {
     bottomDisplay.textContent = "0";
     topDisplay.textContent = "";
+    currentOperator = "";
     number1 = 0;
-    number2 = 0;
+    number2 = "";
 });
 
 plusButton.addEventListener("click", () => {
@@ -228,10 +273,12 @@ plusButton.addEventListener("click", () => {
     {
         updateForAddition();
     }
-    else if (currentOperator === "add" && number2 != "")
+    else if (number2 != "")
     {
-        calculate();
-        updateForAddition();
+        let chaining = true;
+        calculate(chaining);
+        currentOperator = "add"
+        operatorCheck();
     }
 });
 
@@ -244,10 +291,48 @@ subButton.addEventListener("click", () => {
     {
         updateForSubtraction();
     }
-    else if (currentOperator === "subtract" && number2 != "")
+    else if (number2 != "")
     {
-        calculate();
-        updateForSubtraction();
+        let chaining = true;
+        calculate(chaining);
+        currentOperator = "subtract"
+        operatorCheck();
+    }
+});
+
+multiplyButton.addEventListener("click", () => {
+    if (number1 === "")
+    {
+        number1 = 0;
+    }
+    if (currentOperator === "")
+    {
+        updateForMultiplication();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        currentOperator = "multiply"
+        operatorCheck();
+    }
+});
+
+divideButton.addEventListener("click", () => {
+    if (number1 === "")
+    {
+        number1 = 0;
+    }
+    if (currentOperator === "")
+    {
+        updateForDivision();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        currentOperator = "divide"
+        operatorCheck();
     }
 });
 
