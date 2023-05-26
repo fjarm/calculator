@@ -6,7 +6,7 @@ let number1 = "";
 let number2 = "";
 let currentOperator = "";
 let justCalculated = false;
-
+let errorCheck = "";
 let currentNumber = 1;
 
 const zero  = document.querySelector("#zero");
@@ -42,6 +42,14 @@ function subtract(x, y)
 
 function divide(x, y)
 {
+    if (x === 0 && y === 0)
+    {
+        return "Error";
+    }
+    else if (x != 0 && y === 0)
+    {
+        return "Infinity... Nice Try.";
+    }
     return x / y;
 }
 
@@ -124,7 +132,7 @@ function updateBottomDisplay(number)
 {
     if (bottomDisplay.textContent.length < 100)
     {
-        if (bottomDisplay.textContent === "0" || justCalculated === true)
+        if (bottomDisplay.textContent === "0" || justCalculated === true || bottomDisplay.textContent === "Error" || bottomDisplay.textContent === "Infinity... Nice Try.")
         {
             justCalculated = false;
             bottomDisplay.textContent = number;
@@ -167,9 +175,16 @@ function concatNumberVariables(number)
 function calculate(chaining)
 {
     result = operate(number1, number2, currentOperator);
-    result = result.toPrecision(5);
-    result = parseFloat(result);
-    result = result.toString();
+    if (result != "Error" && result != "Infinity... Nice Try.")
+    {
+        result = result.toPrecision(5);
+        result = parseFloat(result);
+        result = result.toString();
+    }
+    else
+    {
+        errorCheck = result;
+    }
     updateTopDisplay(number1, number2, currentOperator);
     bottomDisplay.textContent = result;
     number1 = result;
@@ -180,6 +195,24 @@ function calculate(chaining)
     }
     currentNumber = 1;
     justCalculated = true;
+    return;
+}
+
+function errorTextCheck(operation)
+{
+    if (errorCheck != "Error" && errorCheck != "Infinity... Nice Try.")
+    {
+        errorCheck = "";
+        currentOperator = operation;
+        operatorCheck();
+    }
+    errorCheck = "";
+}
+
+function setZero()
+{
+    number1 = "0";
+    bottomDisplay.textContent = "0";
     return;
 }
 
@@ -262,14 +295,15 @@ clear.addEventListener("click", () => {
     bottomDisplay.textContent = "0";
     topDisplay.textContent = "";
     currentOperator = "";
-    number1 = 0;
+    number1 = "0";
     number2 = "";
 });
 
 plusButton.addEventListener("click", () => {
-    if (number1 === "")
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
     {
-        number1 = 0;
+        setZero();
+        updateForAddition();
     }
     if (currentOperator === "")
     {
@@ -279,15 +313,15 @@ plusButton.addEventListener("click", () => {
     {
         let chaining = true;
         calculate(chaining);
-        currentOperator = "add"
-        operatorCheck();
+        errorTextCheck("add");
     }
 });
 
 subButton.addEventListener("click", () => {
-    if (number1 === "")
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
     {
-        number1 = 0;
+        setZero();
+        updateForSubtraction();
     }
     if (currentOperator === "")
     {
@@ -297,15 +331,15 @@ subButton.addEventListener("click", () => {
     {
         let chaining = true;
         calculate(chaining);
-        currentOperator = "subtract"
-        operatorCheck();
+        errorTextCheck("subtract");
     }
 });
 
 multiplyButton.addEventListener("click", () => {
-    if (number1 === "")
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
     {
-        number1 = 0;
+        setZero();
+        updateForMultiplication();
     }
     if (currentOperator === "")
     {
@@ -315,15 +349,15 @@ multiplyButton.addEventListener("click", () => {
     {
         let chaining = true;
         calculate(chaining);
-        currentOperator = "multiply"
-        operatorCheck();
+        errorTextCheck("multiply");
     }
 });
 
 divideButton.addEventListener("click", () => {
-    if (number1 === "")
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
     {
-        number1 = 0;
+        setZero();
+        updateForDivision();
     }
     if (currentOperator === "")
     {
@@ -333,8 +367,7 @@ divideButton.addEventListener("click", () => {
     {
         let chaining = true;
         calculate(chaining);
-        currentOperator = "divide"
-        operatorCheck();
+        errorTextCheck("divide");
     }
 });
 
