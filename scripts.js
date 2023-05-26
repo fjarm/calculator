@@ -175,6 +175,7 @@ function concatNumberVariables(number)
 function calculate(chaining)
 {
     result = operate(number1, number2, currentOperator);
+    updateTopDisplay(number1, number2, currentOperator);
     if (result != "Error" && result != "Infinity... Nice Try.")
     {
         result = result.toPrecision(5);
@@ -186,7 +187,6 @@ function calculate(chaining)
         errorCheck = result;
         currentOperator = "";
     }
-    updateTopDisplay(number1, number2, currentOperator);
     bottomDisplay.textContent = result;
     number1 = result;
     number2 = "";
