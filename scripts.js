@@ -52,8 +52,8 @@ function multiply(x, y)
 
 function operate(x, y, operator)
 {
-    x = parseInt(x);
-    y = parseInt(y);
+    x = parseFloat(x);
+    y = parseFloat(y);
     switch(operator)
     {
         case "add":
@@ -167,7 +167,9 @@ function concatNumberVariables(number)
 function calculate(chaining)
 {
     result = operate(number1, number2, currentOperator);
-    result = result.toFixed(5);
+    result = result.toPrecision(5);
+    result = parseFloat(result);
+    result = result.toString();
     updateTopDisplay(number1, number2, currentOperator);
     bottomDisplay.textContent = result;
     number1 = result;
