@@ -164,6 +164,14 @@ function updateForAddition()
     justCalculated = false;
 }
 
+function updateForSubtraction()
+{
+    concatBottomDisplay(" - ")
+    currentOperator = "subtract";
+    currentNumber = 2;
+    justCalculated = false;
+}
+
 one.addEventListener("click", () => {
     updateBottomDisplay("1");
 });
@@ -224,6 +232,22 @@ plusButton.addEventListener("click", () => {
     {
         calculate();
         updateForAddition();
+    }
+});
+
+subButton.addEventListener("click", () => {
+    if (number1 === "")
+    {
+        number1 = 0;
+    }
+    if (currentOperator === "")
+    {
+        updateForSubtraction();
+    }
+    else if (currentOperator === "subtract" && number2 != "")
+    {
+        calculate();
+        updateForSubtraction();
     }
 });
 
