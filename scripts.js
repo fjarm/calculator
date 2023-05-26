@@ -184,6 +184,7 @@ function calculate(chaining)
     else
     {
         errorCheck = result;
+        currentOperator = "";
     }
     updateTopDisplay(number1, number2, currentOperator);
     bottomDisplay.textContent = result;
