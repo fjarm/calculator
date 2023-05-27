@@ -192,7 +192,7 @@ function calculate(chaining)
     updateTopDisplay(number1, number2, currentOperator);
     if (result != "Error" && result != "Infinity... Nice Try.")
     {
-        result = result.toPrecision(5);
+        result = parseFloat(result).toPrecision(12);
         result = Number(result);
         result = result.toString();
     }
