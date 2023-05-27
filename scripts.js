@@ -24,6 +24,9 @@ const clear = document.querySelector("#clear");
 const toggleNegative = document.querySelector("#plusminus");
 const percent = document.querySelector("#percent");
 
+const undo = document.querySelector("#undo");
+const decimal = document.querySelector("#decimal");
+
 const plusButton = document.querySelector("#plus");
 const subButton = document.querySelector("#minus");
 const multiplyButton = document.querySelector("#multiply");
@@ -132,7 +135,18 @@ function updateBottomDisplay(number)
 {
     if (bottomDisplay.textContent.length < 100)
     {
-        if (bottomDisplay.textContent === "0" || justCalculated === true || bottomDisplay.textContent === "Error" || bottomDisplay.textContent === "Infinity... Nice Try.")
+        if (number === "." && justCalculated === true)
+        {
+            justCalculated = false;
+            concatBottomDisplay(number);
+            concatNumberVariables(number);
+        }
+        else if (number === "." && bottomDisplay.textContent === "0")
+        {
+            concatBottomDisplay(number);
+            concatNumberVariables(number);
+        }
+        else if (bottomDisplay.textContent === "0" || justCalculated === true || bottomDisplay.textContent === "Error" || bottomDisplay.textContent === "Infinity... Nice Try.")
         {
             justCalculated = false;
             bottomDisplay.textContent = number;
@@ -179,7 +193,7 @@ function calculate(chaining)
     if (result != "Error" && result != "Infinity... Nice Try.")
     {
         result = result.toPrecision(5);
-        result = parseFloat(result);
+        result = Number(result);
         result = result.toString();
     }
     else
@@ -376,5 +390,16 @@ equalsButton.addEventListener("click", () => {
     if (currentOperator != "" && number2 != "")
     {
         calculate();
+    }
+});
+
+decimal.addEventListener("click", () => {
+    if (currentNumber === 1 && number1.indexOf(".") === -1)
+    {
+        updateBottomDisplay(".");
+    }
+    else if (currentNumber === 2 && number2.indexOf(".") === -1)
+    {
+        updateBottomDisplay(".");
     }
 });
