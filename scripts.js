@@ -247,6 +247,15 @@ function undoOperatorCheck()
     }
 }
 
+function toPercent(number)
+{
+    number = number * .01;
+    number = number.toPrecision(5);
+    number = Number(number);
+    number = number.toString();
+    return number;
+}
+
 function updateForAddition()
 {
     concatBottomDisplay(" + ")
@@ -443,5 +452,21 @@ undo.addEventListener("click", () => {
     {
         bottomDisplay.textContent = "0";
         number1 = "0";
+    }
+});
+
+percent.addEventListener("click", () => {
+    if (currentNumber === 1)
+    {
+        number1 = toPercent(number1);
+        bottomDisplay.textContent = number1;
+    }
+    else if (currentNumber === 2)
+    {
+        number2Length = number2.length;
+        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
+        console.log(number2Length);
+        number2 = toPercent(number2);
+        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
     }
 });
