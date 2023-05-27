@@ -256,6 +256,18 @@ function toPercent(number)
     return number;
 }
 
+function toggleNegativeNumber(number)
+{
+    number = number * -1;
+    number = number.toString();
+    return number;
+}
+
+function updateOnlySecond()
+{
+
+}
+
 function updateForAddition()
 {
     concatBottomDisplay(" + ")
@@ -446,6 +458,12 @@ undo.addEventListener("click", () => {
             currentOperator = "";
             currentNumber = 1;
         }
+        
+        if (bottomDisplay.textContent.slice(-1) === "-")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+            number2 = "";
+        }
     }
 
     if (bottomDisplay.textContent === "")
@@ -465,8 +483,22 @@ percent.addEventListener("click", () => {
     {
         number2Length = number2.length;
         bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
-        console.log(number2Length);
         number2 = toPercent(number2);
+        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
+    }
+});
+
+toggleNegative.addEventListener("click", () => {
+    if (currentNumber === 1)
+    {
+        number1 = toggleNegativeNumber(number1);
+        bottomDisplay.textContent = number1;
+    }
+    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
+    {
+        number2Length = number2.length;
+        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
+        number2 = toggleNegativeNumber(number2);
         bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
     }
 });
