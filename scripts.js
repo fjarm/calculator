@@ -479,7 +479,7 @@ percent.addEventListener("click", () => {
         number1 = toPercent(number1);
         bottomDisplay.textContent = number1;
     }
-    else if (currentNumber === 2)
+    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
     {
         number2Length = number2.length;
         bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
