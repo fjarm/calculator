@@ -238,6 +238,15 @@ function operatorUpdates()
     return;
 }
 
+function undoOperatorCheck()
+{
+    string = bottomDisplay.textContent;
+    if (string.slice(-1) === " ")
+    {
+
+    }
+}
+
 function updateForAddition()
 {
     concatBottomDisplay(" + ")
@@ -312,6 +321,7 @@ clear.addEventListener("click", () => {
     currentOperator = "";
     number1 = "0";
     number2 = "";
+    currentNumber = 1;
 });
 
 plusButton.addEventListener("click", () => {
@@ -401,5 +411,37 @@ decimal.addEventListener("click", () => {
     else if (currentNumber === 2 && number2.indexOf(".") === -1)
     {
         updateBottomDisplay(".");
+    }
+});
+
+undo.addEventListener("click", () => {
+    isCharacterOperator = undoOperatorCheck();
+    
+    if (bottomDisplay.textContent != "0")
+    {
+        if (bottomDisplay.textContent.slice(-1) != " ")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+            if (currentNumber === 1)
+            {
+                number1 = bottomDisplay.textContent
+            }
+            else if (currentNumber === 2)
+            {
+                number2 = number2.slice(0, -1);
+            }
+        }
+        else if (bottomDisplay.textContent.slice(-1) === " ")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -3);
+            currentOperator = "";
+            currentNumber = 1;
+        }
+    }
+
+    if (bottomDisplay.textContent === "")
+    {
+        bottomDisplay.textContent = "0";
+        number1 = "0";
     }
 });
