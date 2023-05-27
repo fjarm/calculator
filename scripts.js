@@ -250,7 +250,7 @@ function undoOperatorCheck()
 function toPercent(number)
 {
     number = number * .01;
-    number = number.toPrecision(5);
+    number = parseFloat(number).toPrecision(12);
     number = Number(number);
     number = number.toString();
     return number;
