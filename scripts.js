@@ -502,3 +502,17 @@ toggleNegative.addEventListener("click", () => {
         bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
     }
 });
+
+document.addEventListener("keypress", (event)  => {
+    console.log(event)
+    if (event.key === "1") {updateBottomDisplay("1");};
+    if (event.key === "2") {updateBottomDisplay("2");};
+    if (event.key === "3") {updateBottomDisplay("3");};
+    if (event.key === "4") {updateBottomDisplay("4");};
+    if (event.key === "5") {updateBottomDisplay("5");};
+    if (event.key === "6") {updateBottomDisplay("6");};
+    if (event.key === "7") {updateBottomDisplay("7");};
+    if (event.key === "8") {updateBottomDisplay("8");};
+    if (event.key === "9") {updateBottomDisplay("9");};
+    if (event.key === "0") {updateBottomDisplay("0");};
+});
