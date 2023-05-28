@@ -289,6 +289,183 @@ function updateForMultiplication()
     operatorUpdates()
 }
 
+function clearEvent()
+{
+    bottomDisplay.textContent = "0";
+    topDisplay.textContent = "";
+    currentOperator = "";
+    number1 = "0";
+    number2 = "";
+    currentNumber = 1;
+}
+
+function plusEvent()
+{
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
+    {
+        setZero();
+        updateForAddition();
+    }
+    if (currentOperator === "")
+    {
+        updateForAddition();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        errorTextCheck("add");
+    }
+}
+
+function subtractEvent()
+{
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
+    {
+        setZero();
+        updateForSubtraction();
+    }
+    if (currentOperator === "")
+    {
+        updateForSubtraction();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        errorTextCheck("subtract");
+    }
+}
+
+function multiplyEvent()
+{
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
+    {
+        setZero();
+        updateForMultiplication();
+    }
+    if (currentOperator === "")
+    {
+        updateForMultiplication();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        errorTextCheck("multiply");
+    }
+}
+
+function divideEvent()
+{
+    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
+    {
+        setZero();
+        updateForDivision();
+    }
+    if (currentOperator === "")
+    {
+        updateForDivision();
+    }
+    else if (number2 != "")
+    {
+        let chaining = true;
+        calculate(chaining);
+        errorTextCheck("divide");
+    }
+}
+
+function equalsEvent()
+{
+    if (currentOperator != "" && number2 != "")
+    {
+        calculate();
+    }
+}
+
+function decimalEvent()
+{
+    if (currentNumber === 1 && number1.indexOf(".") === -1)
+    {
+        updateBottomDisplay(".");
+    }
+    else if (currentNumber === 2 && number2.indexOf(".") === -1)
+    {
+        updateBottomDisplay(".");
+    }
+}
+
+function undoEvent()
+{
+    isCharacterOperator = undoOperatorCheck();
+    
+    if (bottomDisplay.textContent != "0")
+    {
+        if (bottomDisplay.textContent.slice(-1) != " ")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+            if (currentNumber === 1)
+            {
+                number1 = bottomDisplay.textContent
+            }
+            else if (currentNumber === 2)
+            {
+                number2 = number2.slice(0, -1);
+            }
+        }
+        else if (bottomDisplay.textContent.slice(-1) === " ")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -3);
+            currentOperator = "";
+            currentNumber = 1;
+        }
+        
+        if (bottomDisplay.textContent.slice(-1) === "-")
+        {
+            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
+            number2 = "";
+        }
+    }
+
+    if (bottomDisplay.textContent === "")
+    {
+        bottomDisplay.textContent = "0";
+        number1 = "0";
+    }
+}
+
+function percentEvent()
+{
+    if (currentNumber === 1)
+    {
+        number1 = toPercent(number1);
+        bottomDisplay.textContent = number1;
+    }
+    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
+    {
+        number2Length = number2.length;
+        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
+        number2 = toPercent(number2);
+        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
+    }
+}
+
+function toggleNegativeEvent()
+{
+    if (currentNumber === 1)
+    {
+        number1 = toggleNegativeNumber(number1);
+        bottomDisplay.textContent = number1;
+    }
+    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
+    {
+        number2Length = number2.length;
+        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
+        number2 = toggleNegativeNumber(number2);
+        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
+    }
+}
+
 function updateForDivision()
 {
     concatBottomDisplay(" / ")
@@ -337,170 +514,43 @@ zero.addEventListener("click", () => {
 });
 
 clear.addEventListener("click", () => {
-    bottomDisplay.textContent = "0";
-    topDisplay.textContent = "";
-    currentOperator = "";
-    number1 = "0";
-    number2 = "";
-    currentNumber = 1;
+    clearEvent();
 });
 
 plusButton.addEventListener("click", () => {
-    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
-    {
-        setZero();
-        updateForAddition();
-    }
-    if (currentOperator === "")
-    {
-        updateForAddition();
-    }
-    else if (number2 != "")
-    {
-        let chaining = true;
-        calculate(chaining);
-        errorTextCheck("add");
-    }
+    plusEvent();
 });
 
 subButton.addEventListener("click", () => {
-    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
-    {
-        setZero();
-        updateForSubtraction();
-    }
-    if (currentOperator === "")
-    {
-        updateForSubtraction();
-    }
-    else if (number2 != "")
-    {
-        let chaining = true;
-        calculate(chaining);
-        errorTextCheck("subtract");
-    }
+    subtractEvent();
 });
 
 multiplyButton.addEventListener("click", () => {
-    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
-    {
-        setZero();
-        updateForMultiplication();
-    }
-    if (currentOperator === "")
-    {
-        updateForMultiplication();
-    }
-    else if (number2 != "")
-    {
-        let chaining = true;
-        calculate(chaining);
-        errorTextCheck("multiply");
-    }
+    multiplyEvent();
 });
 
 divideButton.addEventListener("click", () => {
-    if (number1 === "" || number1 === "Error" || number1 === "Infinity... Nice Try.")
-    {
-        setZero();
-        updateForDivision();
-    }
-    if (currentOperator === "")
-    {
-        updateForDivision();
-    }
-    else if (number2 != "")
-    {
-        let chaining = true;
-        calculate(chaining);
-        errorTextCheck("divide");
-    }
+    divideEvent();
 });
 
 equalsButton.addEventListener("click", () => {
-    if (currentOperator != "" && number2 != "")
-    {
-        calculate();
-    }
+    equalsEvent();
 });
 
 decimal.addEventListener("click", () => {
-    if (currentNumber === 1 && number1.indexOf(".") === -1)
-    {
-        updateBottomDisplay(".");
-    }
-    else if (currentNumber === 2 && number2.indexOf(".") === -1)
-    {
-        updateBottomDisplay(".");
-    }
+    decimalEvent();
 });
 
 undo.addEventListener("click", () => {
-    isCharacterOperator = undoOperatorCheck();
-    
-    if (bottomDisplay.textContent != "0")
-    {
-        if (bottomDisplay.textContent.slice(-1) != " ")
-        {
-            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
-            if (currentNumber === 1)
-            {
-                number1 = bottomDisplay.textContent
-            }
-            else if (currentNumber === 2)
-            {
-                number2 = number2.slice(0, -1);
-            }
-        }
-        else if (bottomDisplay.textContent.slice(-1) === " ")
-        {
-            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -3);
-            currentOperator = "";
-            currentNumber = 1;
-        }
-        
-        if (bottomDisplay.textContent.slice(-1) === "-")
-        {
-            bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -1);
-            number2 = "";
-        }
-    }
-
-    if (bottomDisplay.textContent === "")
-    {
-        bottomDisplay.textContent = "0";
-        number1 = "0";
-    }
+    undoEvent();
 });
 
 percent.addEventListener("click", () => {
-    if (currentNumber === 1)
-    {
-        number1 = toPercent(number1);
-        bottomDisplay.textContent = number1;
-    }
-    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
-    {
-        number2Length = number2.length;
-        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
-        number2 = toPercent(number2);
-        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
-    }
+    percentEvent();
 });
 
 toggleNegative.addEventListener("click", () => {
-    if (currentNumber === 1)
-    {
-        number1 = toggleNegativeNumber(number1);
-        bottomDisplay.textContent = number1;
-    }
-    else if (currentNumber === 2 && bottomDisplay.textContent.slice(-1) != " ")
-    {
-        number2Length = number2.length;
-        bottomDisplay.textContent = bottomDisplay.textContent.slice(0, -number2Length);
-        number2 = toggleNegativeNumber(number2);
-        bottomDisplay.textContent = bottomDisplay.textContent.concat(number2);
-    }
+    toggleNegativeEvent();
 });
 
 document.addEventListener("keypress", (event)  => {
