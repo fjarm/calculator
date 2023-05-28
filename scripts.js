@@ -553,7 +553,7 @@ toggleNegative.addEventListener("click", () => {
     toggleNegativeEvent();
 });
 
-document.addEventListener("keypress", (event)  => {
+document.addEventListener("keydown", (event)  => {
     console.log(event)
     if (event.key === "1") {updateBottomDisplay("1");};
     if (event.key === "2") {updateBottomDisplay("2");};
@@ -565,4 +565,13 @@ document.addEventListener("keypress", (event)  => {
     if (event.key === "8") {updateBottomDisplay("8");};
     if (event.key === "9") {updateBottomDisplay("9");};
     if (event.key === "0") {updateBottomDisplay("0");};
+
+    if (event.key === ".") {decimalEvent();};
+    if (event.key === "/") {divideEvent();};
+    if (event.key === "*") {multiplyEvent();};
+    if (event.key === "-") {subtractEvent();};
+    if (event.key === "+") {plusEvent();};
+    if (event.key === "Enter") {equalsEvent();};
+    if (event.key === "Escape" || event.key === "Delete") {clearEvent();};
+    if (event.key === "Backspace") {undoEvent();};
 });
